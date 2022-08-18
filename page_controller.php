@@ -75,7 +75,7 @@ foreach($product['size_ids'] as $sizeKey => $oneSize){
         'amount' => $product['amounts'][$sizeKey],
     ];
 }
-printScreen($product);
+// printScreen($product);
 
 
 

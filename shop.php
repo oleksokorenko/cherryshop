@@ -66,7 +66,7 @@
                 <strong>Kolor:</strong>
                 <ul class="colors_types" id="colors_types"></ul>
             </div>
-            <div class="multi_setting" data-name="quantity">
+            <div class="multi_setting" id="quantity" data-name="quantity">
                 <strong>Iloość</strong>
                 <input type="number" min="1" max="100">
             </div>
