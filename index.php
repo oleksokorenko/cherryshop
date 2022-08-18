@@ -130,7 +130,7 @@
         </a>
     </div>
     <div>
-        <p>copyright © 2022. All right reserved by Shop-sumy.com.ua</p> 
+        <p>copyright © 2022. All right reserved by Shop-sumy.com.ua <?= date('d-m-Y H:i:s T') ?></p> 
     </div>
     <div class="phone">
         <a class="fas fa-phone" href="tel:+380500520522">+38 (050) 052-05-22</a>
