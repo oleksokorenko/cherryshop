@@ -66,16 +66,13 @@ listToArray($product, [
 ]);
 
 foreach($product['size_ids'] as $sizeKey => $oneSize){
-    $product['by_sizes'][$oneSize] = [
-        'size_id' => $oneSize,
-        'size_label' => $product['size_labels'][$sizeKey],
-        
-    ];
+    $product['by_sizes'][$oneSize]['size_id'] = $oneSize;
+    $product['by_sizes'][$oneSize]['size_label'] = $product['size_labels'][$sizeKey];
     $product['by_sizes'][$oneSize]['colors'][] = [
-    //         'color_id' => $product['color_ids'][$sizeKey],
-            'color_value' => $product['color_values'][$sizeKey],
-    //         'color_label' => $product['color_labels'][$sizeKey],
-    //         'amount' => $product['amounts'][$sizeKey],
+        'color_id' => $product['color_ids'][$sizeKey],
+        'color_value' => $product['color_values'][$sizeKey],
+        'color_label' => $product['color_labels'][$sizeKey],
+        'amount' => $product['amounts'][$sizeKey],
     ];
 }
 printScreen($product);
