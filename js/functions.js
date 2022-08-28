@@ -16,11 +16,12 @@ function refreshBasket(){
         puchesCount++;
     });
     document.querySelector("#basket_key span").innerText = puchesCount;
-    refreshBasket();
+document.querySelector("#basket > ul").innerHTML = purches;
 
 }
 function deleteProduct(element){
     delete basket[element.dataset.id];
 }
+
 
 
