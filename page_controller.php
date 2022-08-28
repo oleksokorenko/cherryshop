@@ -23,7 +23,7 @@ $productList = $productList[$_GET["type"]];
 function getProductById(mysqli $connect, int $id):array {
     $result = mysqli_query($connect,"
     SELECT 
-    p.`id`, 
+    GROUP_CONCAT(p.`id`) AS 'ids', 
     pr.`title`, 
     pr.`price`, 
     pr.`description`, 
@@ -57,6 +57,7 @@ function listToArray(array &$subject, array $targetKeys){
     }
 }
 listToArray($product, [
+    'ids',
     'size_ids', 
     'size_labels', 
     'color_ids', 
@@ -69,6 +70,7 @@ foreach($product['size_ids'] as $sizeKey => $oneSize){
     $product['by_sizes'][$oneSize]['size_id'] = $oneSize;
     $product['by_sizes'][$oneSize]['size_label'] = $product['size_labels'][$sizeKey];
     $product['by_sizes'][$oneSize]['colors'][] = [
+        'id' => $product['ids'][$sizeKey],
         'color_id' => $product['color_ids'][$sizeKey],
         'color_value' => $product['color_values'][$sizeKey],
         'color_label' => $product['color_labels'][$sizeKey],

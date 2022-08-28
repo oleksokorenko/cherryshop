@@ -20,25 +20,40 @@
             <p>Cherry.shop.ua</p>
         </div>
         <div class="menu_box">
-           <div class="logo-box">
+            <div class="logo-box">
                 <div class="logo"><a href="/"><img src="./img/logo.jpg" alt="logo czerry"></a></div>
-           </div>
-            <ul class="menu">
-                <li><a href="shop.html?type=sport">Sport</a></li>
-                <li><a href="#">Nowości</a></li>
-                <li><a href="#">Sale%</a></li>
-                <li><a href="shop.html?type=aksesoria">Akcesoria</a></li>
-                <li><a href="shop.html?type=odirz">Ubranie</a></li>
-                <li><a href="shop.html?type=dekor">Wystrój domu</a></li>
-                <li id="basket_key">
-                    <i class="fa-solid fa-basket-shopping"></i>
-                    <span></span>
-                </li>
-            </ul>
+            </div>
+                <ul class="menu">
+                    <li><a href="shop.html?type=sport">Sport</a></li>
+                    <!-- <li><a href="#">Nowości</a></li>
+                    <li><a href="#">Sale%</a></li> -->
+                    <li><a href="shop.html?type=aksesoria">Akcesoria</a></li>
+                    <li><a href="shop.html?type=odirz">Ubranie</a></li>
+                    <li><a href="shop.html?type=dekor">Wystrój domu</a></li>
+                    <li id="basket_key">
+                        <i class="fa-solid fa-basket-shopping"></i>
+                        <span></span>
+                    </li>
+                </ul>
             <div class="burger">
                 <i class="fa-solid fa-bars"></i>
             </div>
-       </div>
+        </div>
+        <div class="popup hide" id="basket" >
+            <span class="closer">✖</span>
+            <h3>Twój koszyk</h3>
+            <ul></ul>
+            <div class="form">Wypelni dane do kontaktu</div>
+            <form action="#">
+                <input type="hidden" name="puchases">
+                <input type="tel"  name="phone" id="username" autocomplete="off" require placeholder="Napisz telephone w formacie XXX-XXX-XXX">
+                <input type="email" name="email" placeholder="Napisz email">
+                <input type="text" name="name" placeholder="Napisz swoje imię">
+                <textarea name="comment" cols="30" rows="10" placeholder="Napisz uwagi"></textarea>
+                <button type="submit" class="btn" >Wyszli zamówienia</button>
+            </form>
+
+        </div>
     </header>
     <section class="shop_page">
         <div class="model_foto">
@@ -48,7 +63,7 @@
         <div class="setting_box">
             <h4><?= $product["type"] ?></h4>
             <h2><?= $product["title"] ?></h2>
-            <div class="multi_setting" data-name="id" data-value="<?= $product["id"] ?>"></div>
+            <div class="multi_setting" data-name="id" id="product_id"></div>
             <div class="multi_setting" data-name="name" data-value="<?= $product["title"] ?>"></div>
             <div class="multi_setting" data-name="size">
                 <strong>Rozmiar:</strong>
@@ -70,14 +85,15 @@
                 <strong>Iloość</strong>
                 <input type="number" min="1" max="100">
             </div>
-            <div class="multi_setting">
+            <div class="multi_setting" data-name="price" data-value="<?= $product["price"] ?>">
                 <strong>Cena:</strong>
-                <h5 class="price"><?= $product["price"] ?> zł</h5>
+                <h5 class="price" > <?= $product["price"] ?> zł</h5>
             </div>
             <button id="add_to_box">Kupić</button>
 
         </div>
     </section>
+
     
 
 
@@ -105,7 +121,7 @@
     
     
 </footer>
-
-    <script src="./js/script.js"></script>
+<script src="./js/functions.js"></script>
+<script src="./js/script.js"></script>
 </body>
 </html>

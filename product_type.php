@@ -25,8 +25,8 @@
            </div>
             <ul class="menu">
                 <li><a href="shop.html?type=sport">Sport</a></li>
-                <li><a href="#">Nowości</a></li>
-                <li><a href="#">Sale%</a></li>
+                <!-- <li><a href="#">Nowości</a></li>
+                <li><a href="#">Sale%</a></li> -->
                 <li><a href="shop.html?type=aksesoria">Akcesoria</a></li>
                 <li><a href="shop.html?type=odirz">Ubranie</a></li>
                 <li><a href="shop.html?type=dekor">Wystrój domu</a></li>
@@ -78,7 +78,7 @@
     
     
 </footer>
-
-    <script src="./js/script.js"></script>
+<script src="./js/functions.js"></script>
+<script src="./js/script.js"></script>
 </body>
 </html>

@@ -62,22 +62,22 @@
            </div>
             <ul class="menu">
                 <li><a href="shop.html?type=sport">Sport</a></li>
-                <li><a href="#">Nowości</a></li>
-                <li><a href="#">Sale%</a></li>
+                <!-- <li><a href="#">Nowości</a></li>
+                <li><a href="#">Sale%</a></li> -->
                 <li><a href="shop.html?type=aksesoria">Akcesoria</a></li>
                 <li><a href="shop.html?type=odirz">Ubranie</a></li>
                 <li><a href="shop.html?type=dekor">Wystrój domu</a></li>
                 <li id="basket_key">
                     <i class="fa-solid fa-basket-shopping"></i>
+                    <!-- <i class="fa-solid fa-bars"></i> -->
                     <span></span>
                 </li>
             </ul>
-            <div class="burger">
-                <i class="fa-solid fa-bars"></i>
+            <div class="burger"><i class="fa-solid fa-bars"></i>
             </div>
        </div>
     </header>
-    <section class="promo_kod">
+    <!-- <section class="promo_kod">
         <div>
             <span>Sale from</span>
             <span>Sale to</span>
@@ -95,7 +95,7 @@
         </div>
         
 
-    </section>
+    </section> -->
     <section class="close_shop">
         <?php foreach($typeList as $oneType) { ?>
             <div style="background-image: url(<?= $oneType["img"] ?>);">
@@ -141,10 +141,10 @@
     <a  class="to_page "  href="#top_page"> <i class="fa-solid fa-up-long"></i> </a>
    
     
-    
+    <!-- cookis -->
     
 </footer>
-
-    <script src="./js/script.js"></script>
+<script src="./js/functions.js"></script>
+<script src="./js/script.js"></script>
 </body>
 </html>
