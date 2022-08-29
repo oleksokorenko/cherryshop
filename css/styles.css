@@ -49,7 +49,6 @@ nav {
     background:rgb(156, 181, 204);
     height: 70px;
     justify-content: space-between;
-
 }
 .burger{
     display: none;
@@ -65,24 +64,21 @@ nav {
 .pushes_deleter{
     font-weight: bolder;
 }
-    .closer:hover,.pushes_deleter:hover {
-        color:red ;
-        font-size: 25px;
-        cursor: pointer;
-        background: #094c66;
-        border-radius: 50px;
-    }
-    .form{
-        background: #1197cc;
-        color:black;
-        padding: 5px;
-        border: #868686 solid 3px;
-        border-radius: 30px;
-        text-transform: uppercase;
-
-
-    }
-
+.closer:hover,.pushes_deleter:hover {
+    color:red ;
+    font-size: 25px;
+    cursor: pointer;
+    background: #094c66;
+    border-radius: 50px;
+}
+.form{
+    background: #1197cc;
+    color:black;
+    padding: 5px;
+    border: #868686 solid 3px;
+    border-radius: 30px;
+    text-transform: uppercase;
+}
 .popup{
     position: absolute;
     z-index: 2;
@@ -123,12 +119,6 @@ nav {
     font-weight: bolder;
     color: rgb(2, 20, 55);
 }
-/* .popup hr{
-    margin: 20px 0;
-    height:3px;
-    background:"red";
-    
-} */
 .popup form{
     display: flex;
     flex-direction: column;
@@ -137,7 +127,6 @@ nav {
 .popup form > input, textarea, button{
     width: 50%;
     margin: 10px 0;
-
 }
 .popup form > button{
     padding: 10px;
@@ -176,7 +165,6 @@ button.btn::before{
     box-shadow: 0 0 0 2px #b18597, 0 0.625 em 0 0 #ffe3e2;
     transform: translate3d(0, 0.75em, -1em);
     transition: transform 0.15s, box-shadow 0.15s;
-
 }
 button.btn:hover{
     background: #ffe9e9;
@@ -194,13 +182,6 @@ button.btn:active::before{
     box-shadow: 0 0 0 2px #b18597, 0 0  #ffe3e2;
     transform: translate3d(0, 0, -1em);
 }
-
-
-
-
-
-
-
 .burger i{
     font-family: "Font Awesome 6 Free";
     font-weight: 900;
@@ -209,8 +190,6 @@ button.btn:active::before{
     cursor: pointer;
     margin-right: 20px;
 }
-    
-
 .logo-box{
     margin: 0 25px;
     width: 20px;
@@ -220,9 +199,7 @@ button.btn:active::before{
     margin: 0 25px;
     text-align: center;
     width: 50px;
-    
 }
-
 .logo img{
     border: 5px solid #868686;
     border-radius: 50%;
@@ -231,7 +208,6 @@ button.btn:active::before{
     margin-top: 10px;
 }
 img:hover{
-    
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px,
     rgba(0, 0, 0, 0.12) 0px -12px 30px,
     rgba(0, 0, 0, 0.12) 0px 4px 6px,
@@ -251,42 +227,32 @@ img:hover{
 }
 #basket_key{
     font-size: 20px;
-
 }
 #basket_key:hover{
     color: rgb(28, 84, 236);
 }
-    
-
 .sub_menu{
 width: 100%;
 position: absolute;
 display:none ;
-
 }
-
 a {
     text-decoration: none;
     display: inline-block;
     position: relative;
 }
-
 li a {
     color: #868686;
     text-transform: uppercase;
     
 }
-
 .menu > li {
     position: relative;
     margin-left: 25px;
     transition: .5s linear;
     height: 30px;
     background:rgb(156, 181, 204);
-    }
-
-
-
+}
 li a:after {
     content: "";
     width: 0;
@@ -297,7 +263,6 @@ li a:after {
     background: #868686;
     transition: all 0.5s linear;
 }
-
 li a:hover:after {
     width: 100%;
 }
@@ -305,66 +270,52 @@ li a:hover:after {
     flex-basis: 100%;
     height: 0 !important;
     opacity: 0;
-  
 }
-.promo_kod{
-    display: flex;
-    width: 100%;
-    color: white;
-}
-#copy_kod{
-    position: absolute;
-    top: 62px;
-    right: 100px;
-    padding: 10px;
-    border: aquamarine solid 3px; 
-    border-radius: 20px;
-    
-
-}
-.promo_kod > div:first-child{
-    display: flex;
-    width: 20%;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    align-content: center;
-    height:200px;
-    background-color: rgb(212, 113, 113);
-    padding:  0 10px;
-
-}
-.promo_kod>div:first-child > span{
-    text-transform: uppercase;
-    font-size: 20px;
 
 
-}
-.promo_kod>div:first-child>strong{
-    text-align: center;
-    font-size: 4em;
-    
-
-}
-#promo_info{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    background:rgb(204, 21, 122);
-    width:80%;
+.wave_text{
     position: relative;
-    padding-left: 20px;
+    top: 11%;
+    left: 55%;
+    right: 50%;
+    transform: translate(-50%, -50%);
+    background: #77c1e3;
+    border: 2px solid rgb(40, 158, 173);
+    border-radius: 15px;
+    
+    
+}
+.wave_text span{
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.wave_text h2{
+    font-size: 100px;
+    -webkit-text-stroke: 2px #f0a900;
+    color: transparent;
+}
+.wave_text span{
+    font-size: 100px;
+    color:#f0a900;
+    animation: wave 3s ease-in-out infinite;
+}
+@keyframes wave{
+    0%{
+        clip-path: polygon(0% 45%, 15% 44%, 32% 50%, 53% 61%, 70% 58%, 64% 59%, 100% 52%, 100% 100%, 0% 100% );
+    }
+    50%{
+        clip-path: polygon(0% 60%, 16% 65%, 34% 66%, 51% 62%, 67% 50%, 84% 45%, 100% 46%, 100% 100%, 0% 100% );
+    }
+    100%{
+        clip-path: polygon(0% 45%, 15% 44%, 32% 50%, 53% 61%, 70% 58%, 64% 59%, 100% 52%, 100% 100%, 0% 100%  );
+    }
+}
 
-}
-#promo_info > h3{
-    font-size: 50px;
-}
 .close_shop{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
-
-
 }
 .close_shop > div{
     width: 40%;
@@ -378,8 +329,6 @@ li a:hover:after {
     justify-content: center;
     align-items: center;
     transition: all 0.5s ease-out;
-
-
 }
 .close_shop h4{
     color: #f0f2ed;
@@ -391,57 +340,43 @@ li a:hover:after {
     padding: 10px 20px;
     border-radius: 5px;
     transition: all .5 ease-out ;
-
-
-
 }
 .close_shop > div:hover{
     zoom: 1.5;
-    
-
 }
 .close_shop h4:hover{
     background: whitesmoke;
     color: #868686;
-
 }
 .shop_page{
     display: flex;
     width: 90%;
     margin: 50px auto;
-
 }
 .shop_page>div{
     padding: 20px;
-
 }
 .model_foto{
     width: 55%;
-
 }
-
 .model_foto>div img{
     width: 100%;
 }
-
 .setting_box{
-   width: 35%;
+    width: 35%;
 }
 .setting_box h2{
     font-size: 25px;
     font-weight: bold;
     margin: 20px 0;
-
 }
 .setting_box h4{
     font-size: 16px;
-
 }
 .multi_setting{
     display: flex;
     margin: 20px 0;
     align-items: center;
-
 }
 .multi_setting>strong{
     width: 20%;
@@ -465,7 +400,6 @@ li a:hover:after {
 .choised_setting {
     border: 3px solid black !important; 
 }
-
 .colors_types li,h6{
     width: 20px;
     height: 20px;
@@ -481,23 +415,16 @@ li a:hover:after {
 .price{
     font-size: 25px;
     font-weight: bold;
-
 }
 #add_to_box{
     border-radius: 8px;
     background-color: #1197cc;
     box-shadow: #094c66 5px 5px 0;
     transition-duration: 200ms;
-     color: white;
-     text-transform: uppercase;
-     padding: 10px 80px;
-      border: rgb(14, 16, 32) 2px inset;
-    /* border: darkblue 2px solid;
+    color: white;
     text-transform: uppercase;
     padding: 10px 80px;
-    background: rgb(37, 140, 175);
-    color: white;
-    border-radius: 25px; */
+    border: rgb(14, 16, 32) 2px inset;
 }
 #add_to_box:hover{
     background:rgb(2, 65, 86) ;
@@ -512,7 +439,6 @@ li a:hover:after {
     justify-content: space-evenly;
     align-items: center;
     height: 150px;
-    /* width: 100%; */
     padding: 5px;
     margin: 20px 50px;
     background: beige;
@@ -525,24 +451,10 @@ li a:hover:after {
     display: flex;
     align-items: center;
     justify-content: center;
-
-
 }
-
 .product_list img{
     height:100% ;
 }
-
-
-
-
-
-
-
-
-
-
-
 /* Footer */
 footer{
     display: flex;
@@ -555,15 +467,12 @@ footer{
     justify-content: space-around;
     align-items: center;
 }
-
-
 footer > div > p {
     font-size: 18px;
     text-transform: uppercase;
     align-content: center;
     text-align: center;
     background: rgba(rgb(196, 68, 68), rgb(162, 182, 162), rgb(38, 38, 160), 0.5);
-    
 }
 .to_page{
     position: fixed;
@@ -583,15 +492,6 @@ footer > div > p {
     color: rgb(16, 122, 221);
     
 }
-
-
-
-
-
-
-
-
-
 @media all and (max-width:768px  ) and (orientation:portrait) {
 .burger{
     display: block;

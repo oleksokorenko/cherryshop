@@ -53,17 +53,14 @@
 <body>
     <header id="top_page">
         <div class="marquee">
-            
             <p>Shop-sumy.com.ua</p>
         </div>
         <div class="menu_box">
-           <div class="logo-box">
-                <div class="logo"><a href="/"><img src="./img/logo.jpg" alt="logo czerry"></a></div>
-           </div>
+        <div class="logo-box">
+            <div class="logo"><a href="/"><img src="./img/logo.jpg" alt="logo czerry"></a></div>
+        </div>
             <ul class="menu">
                 <li><a href="shop.html?type=sport">Sport</a></li>
-                <!-- <li><a href="#">Nowości</a></li>
-                <li><a href="#">Sale%</a></li> -->
                 <li><a href="shop.html?type=aksesoria">Akcesoria</a></li>
                 <li><a href="shop.html?type=odirz">Ubranie</a></li>
                 <li><a href="shop.html?type=dekor">Wystrój domu</a></li>
@@ -75,27 +72,12 @@
             </ul>
             <div class="burger"><i class="fa-solid fa-bars"></i>
             </div>
-       </div>
+    </div>
     </header>
-    <!-- <section class="promo_kod">
-        <div>
-            <span>Sale from</span>
-            <span>Sale to</span>
-            <span class="flex_break"></span>
-            <strong>55%</strong>
-            <strong>+</strong>
-            <strong>10%</strong>
+        <div class="wave_text">
+            <h2>Shop-sumy.com.ua</h2>
+            <span>Shop-sumy.com.ua</span>
         </div>
-        <div id="promo_info">
-            <h3>Spring Sale</h3>
-            <p style="display: none;">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Harum, vero.</p>
-            <span>Popatrz</span>
-            <div id="copy_kod">k</div>
-
-        </div>
-        
-
-    </section> -->
     <section class="close_shop">
         <?php foreach($typeList as $oneType) { ?>
             <div style="background-image: url(<?= $oneType["img"] ?>);">
