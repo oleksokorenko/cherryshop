@@ -31,6 +31,7 @@ document.getElementById("add_to_box").onclick = function(){
     basket[product.id] = product;
     console.log(basket);
     refreshBasket();
+    resetProduct();
     alert(`Product '${product.name}' w ilości '${product.quantity}'dodano do kosza`);
 }
 document.querySelectorAll(".closer").forEach(item =>{
@@ -88,6 +89,10 @@ document.querySelectorAll(".multi_setting input").forEach(item => {
         event.target.parentNode.dataset.value = event.target.value;
     });
 });
+
+
+
+
 ///////////////cookie//////////////
 
 

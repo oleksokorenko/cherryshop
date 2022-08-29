@@ -182,6 +182,19 @@ button.btn:active::before{
     box-shadow: 0 0 0 2px #b18597, 0 0  #ffe3e2;
     transform: translate3d(0, 0, -1em);
 }
+#total{
+    border: 2px solid blanchedalmond;
+    padding: 10px;
+    background:white;
+    font-size: 30px;
+    border-radius: 10px;
+    text-transform: uppercase;
+}
+#total span{
+    margin: 0 10px;
+    font-weight: bolder;
+}
+
 .burger i{
     font-family: "Font Awesome 6 Free";
     font-weight: 900;
@@ -275,14 +288,12 @@ li a:hover:after {
 
 .wave_text{
     position: relative;
-    top: 11%;
-    left: 55%;
-    right: 50%;
-    transform: translate(-50%, -50%);
+    width: 100%;
+    padding-bottom: 21px;
     background: #77c1e3;
     border: 2px solid rgb(40, 158, 173);
     border-radius: 15px;
-    
+
     
 }
 .wave_text span{
@@ -294,11 +305,15 @@ li a:hover:after {
     font-size: 100px;
     -webkit-text-stroke: 2px #f0a900;
     color: transparent;
+    width: 100%;
+    text-align: center;
 }
 .wave_text span{
     font-size: 100px;
     color:#f0a900;
     animation: wave 3s ease-in-out infinite;
+    width: 100%;
+    text-align: center;
 }
 @keyframes wave{
     0%{

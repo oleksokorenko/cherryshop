@@ -39,10 +39,13 @@
                 <i class="fa-solid fa-bars"></i>
             </div>
         </div>
-        <div class="popup hide" id="basket" >
+        <div class="popup " id="basket" >
             <span class="closer">✖</span>
             <h3>Twój koszyk</h3>
             <ul></ul>
+            <div id="total">
+                <strong>Suma:<span>0</span>zł</strong>
+            </div>
             <div class="form">Wypelni dane do kontaktu</div>
             <form action="#">
                 <input type="hidden" name="puchases">
@@ -51,6 +54,7 @@
                 <input type="text" name="name" placeholder="Napisz swoje imię">
                 <textarea name="comment" cols="30" rows="10" placeholder="Napisz uwagi"></textarea>
                 <button type="submit" class="btn" >Wyszli zamówienia</button>
+
             </form>
 
         </div>
