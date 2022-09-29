@@ -20,30 +20,7 @@ foreach(getProductList($connect) as $produktKey => $oneProduct){
 $productList = $productList[$_GET["type"]];
 // printScreen($productList);
 
-function getProductById(mysqli $connect, int $id):array {
-    $result = mysqli_query($connect,"
-    SELECT 
-    GROUP_CONCAT(p.`id`) AS 'ids', 
-    pr.`title`, 
-    pr.`price`, 
-    pr.`description`, 
-    pr.`img`,
-    GROUP_CONCAT(c.`value`) AS 'color_values',
-    GROUP_CONCAT(c.`label`) AS 'color_labels',
-    GROUP_CONCAT(c.`id`) AS 'color_ids',
-    GROUP_CONCAT(s.`label`) AS 'size_labels',
-    GROUP_CONCAT(s.`id`) AS 'size_ids',
-    pt.`name` AS 'type',
-    GROUP_CONCAT(p.`amount`) AS 'amounts'
-    FROM `products` pr 
-    INNER JOIN `purchases` p ON p.`product` = pr.`id`
-    INNER JOIN `colors` c ON c.`id` = p.`color`
-    INNER JOIN `sizes` s ON s.`id` = p.`size`
-    INNER JOIN `product_types` pt ON pr.`type` = pt.`id`
-    WHERE pr.`id` = {$id}
-    ");
-    return mysqli_fetch_assoc($result);
-}
+
 
 $product = getProductById($connect, 12);
 

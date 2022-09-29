@@ -39,7 +39,7 @@
                 <i class="fa-solid fa-bars"></i>
             </div>
         </div>
-        <div class="popup " id="basket" >
+        <div class="popup hide" id="basket" >
             <span class="closer">✖</span>
             <h3>Twój koszyk</h3>
             <ul></ul>
@@ -47,11 +47,13 @@
                 <strong>Suma:<span>0</span>zł</strong>
             </div>
             <div class="form">Wypelni dane do kontaktu</div>
-            <form action="#">
+            <form action="api_controller.php" method="post">
+                <input type="hidden" name="form_name" value="order">
                 <input type="hidden" name="puchases">
                 <input type="tel"  name="phone" id="username" autocomplete="off" require placeholder="Napisz telephone w formacie XXX-XXX-XXX">
                 <input type="email" name="email" placeholder="Napisz email">
                 <input type="text" name="name" placeholder="Napisz swoje imię">
+                <input type="text" name="address" placeholder="Napisz swoj adress dla korespondencji">
                 <textarea name="comment" cols="30" rows="10" placeholder="Napisz uwagi"></textarea>
                 <button type="submit" class="btn" >Wyszli zamówienia</button>
 

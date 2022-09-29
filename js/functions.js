@@ -6,11 +6,11 @@ function refreshBasket(){
     
     basket.forEach(item => {
         purches += `
-            <li>
+            <li data-id="${item.id}">
                 <h5>${item.name}</h5> 
                 <h6 class="colors_types" style="background:${item.color}; display:inline-block" ></h6>
                 <strong>${item.size}</strong>
-                <input type="number" value=${item.quantity} oninput="productRecount(this, ${item.price})">
+                <input type="number" min=1 max=100 value=${item.quantity} oninput="productRecount(this, ${item.price})">
                 <strong><span>${item.price * item.quantity}</span> zł</strong>
                 <span class="pushes_deleter" onclick="deleteProduct(${item.id})">✖</span>
             </li>
@@ -21,6 +21,8 @@ function refreshBasket(){
     document.querySelector("#basket_key span").innerText = puchesCount;
     document.querySelector("#basket > ul").innerHTML = purches;
     document.querySelector('#total span').innerHTML = sum;
+    document.querySelector('#basket > form input[name="puchases"]').value = JSON.stringify(basket);
+    
 
 }
 function deleteProduct(id){
@@ -40,7 +42,9 @@ function resetProduct(){
     document.querySelector("#quantity input").value = 1;
 }
 function productRecount(item, price){
-    item.parentNode.querySelector("strong > span").innerHTML = item.value * price;
+    let id = item.parentNode.dataset.id;
+    basket[id].quantity = item.value;
+    refreshBasket();
 }
 
 
