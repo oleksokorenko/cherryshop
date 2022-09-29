@@ -1,5 +1,6 @@
 <?php 
 require_once "config.php";
+require_once "setting.php";
 require_once "model.php";
 
 
