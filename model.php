@@ -14,6 +14,15 @@ function createConnect():mysqli {
     return $connect;
 }
 
+function getProtectionValue(string|int|float|null $value): string|int|float|null {
+    return ($value || !is_numeric($value)) ? "'{$value}'," : "{$value},";
+}
+
+function searchItemByField(mysqli $connect, string $table, string $field, mixed $value ): ?int {
+    $value = getProtectionValue($value);
+    $result = mysqli_query($connect, "SELECT `id` FROM `{$table}` WHERE `{$field}` = '{$value}'");
+    return @mysqli_fetch_assoc($result)["id"];
+}    
 
 function getProductList(mysqli $connect):array {
     $result = mysqli_query($connect,"
@@ -77,13 +86,13 @@ function getTypeList(mysqli $connect):array {
 //     $result = mysqli_query($connect,"SELECT*")
 // }
 
-function formValidate(array $formData): void {
+function formValidate(array &$formData): void {
     $errors = [];
     $formName = $formData["form_name"];
+    unset($formData["form_name"]);
     if(!isset(FORM_FIELDS_CONDITIONS[$formName])){
         throw new Exception("Nie ma takiej formu");
     }
-    unset($formData["form_name"]);
     if(count($formData) != count(FORM_FIELDS_CONDITIONS[$formName])){
         $errors[] = "Nie prawidlowa ilość pola";
     }
@@ -125,7 +134,61 @@ function trimFields(array &$fields): void {
 // // printScreen($matches);
 // printScreen($matches);
 // // var_dump($result);
+function insertOneItemToDB(mysqli $connect, string $table, array $fieldsArr): int|string {
+    $sqlString = "INSERT INTO `{$table}` SET ";
+    foreach($fieldsArr as $field => $value){
+        $value = getProtectionValue($value);
+        $sqlString .= "`{$field}` = {$value},";
+    }
+    $sqlString = substr($sqlString, 0, -1);
+    mysqli_query($connect, $sqlString);
+    return mysqli_insert_id($connect);
+}
 
+
+function insertItemsToDB(mysqli $connect, string $table, array $fieldsArr): void {
+    $sqlString = "";
+    foreach($fieldsArr as $product){
+        $sqlValues = "";
+        foreach($product as $field => $value){
+            $sqlFields .= "`{$field}`,";
+            $sqlValues .= getProtectionValue($value);
+        }
+        if(!$sqlString){
+            $sqlFields = substr($sqlFields, 0, -1);
+            $sqlString .= "INSERT INTO `{$table}` ($sqlFields) VALUES ";
+        } 
+        $sqlValues = substr($sqlValues, 0, -1);
+        $sqlString .= "($sqlValues),";
+    }
+    $sqlString = substr($sqlString, 0, -1);
+    mysqli_query($connect, $sqlString);
+}
+
+function getFullPriceByPurchase(mysqli $DBconnect, string $puchasesJSON): int {
+    $puchases = [];
+    foreach(json_decode($puchasesJSON, true) as $puchase){
+        if(!$puchase){
+            continue;
+        }
+        $puchases[$puchase["id"]] = $puchase["quantity"];
+    }
+    $idList = implode(",", array_keys($puchases));
+
+    $productPrice = mysqli_query($DBconnect, "
+        SELECT p.`price`, pur.`id` 
+        FROM `purchases` pur 
+        INNER JOIN `products` p ON pur.`product` = p.`id` 
+        WHERE pur.`id` IN ($idList);
+    ");
+    $productPriceArr = mysqli_fetch_all($productPrice, MYSQLI_ASSOC);
+
+    $fullPrice = 0;
+    foreach($productPriceArr as $key => $onePriceProduct ){
+        $fullPrice += $onePriceProduct["price"] * $puchases[$onePriceProduct["id"]];
+    }
+    return $fullPrice;
+}
 
 
 

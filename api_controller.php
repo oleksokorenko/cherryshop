@@ -6,100 +6,32 @@ require_once "model.php";
 
 try {
     if(isset($_POST["form_name"])){
+        $connect = createConnect();
         switch($_POST["form_name"]){
             case "order":
                 trimFields($_POST);
-                formValidate($_POST);
-                printScreen($_POST);
-                $connect = createConnect();
-                $result = mysqli_query($connect, "SELECT * FROM `users` WHERE `phone` = '{$_POST["phone"]}'");
-                $userId =  mysqli_fetch_assoc($result)["id"];               
-                if(!$userId){
-                    mysqli_query($connect, "
-                        INSERT INTO `users`
-                        SET `phone` = '{$_POST["phone"]}',
-                        `email` = '{$_POST["email"]}',
-                        `name` = '{$_POST["name"]}'
-                    ");
-                    $userId = mysqli_insert_id($connect);
+                formValidate($_POST);                          
+                if(!$userId = searchItemByField($connect, "users", "phone", $_POST["phone"])){
+                    $userId = insertOneItemToDB($connect, "users", [
+                        "phone" => $_POST["phone"],
+                        "email" => $_POST["email"],
+                        "name" => $_POST["name"]
+                    ]);
                 }
-                printScreen($userId);
+                $fullPrice = getFullPriceByPurchase($connect, $_POST["puchases"]);
+                $orderId = insertOneItemToDB($connect, "orders", [
+                    "user" => $userId, 
+                    "adress" => $_POST["address"],
+                    "comment" => $_POST["comment"],
+                    "fullprice" => $fullPrice
+                ]);
 
-                
-                $puchases = [];
-                foreach(json_decode($_POST["puchases"], true) as $puchase){
-                    if(!$puchase){
-                        continue;
-                    }
-                    $puchases[$puchase["id"]] = $puchase["quantity"];
-                }
-                
-                $idList = implode(",", array_keys($puchases));
-
-
-
-
-
-                $productPrice = mysqli_query($connect, "
-                    SELECT p.`price`, pur.`id` 
-                    FROM `purchases` pur 
-                    INNER JOIN `products` p ON pur.`product` = p.`id` 
-                    WHERE pur.`id` IN ($idList);
-                ");
-                $productPriceArr = mysqli_fetch_all($productPrice, MYSQLI_ASSOC);
-                printScreen($productPriceArr);
-                printScreen($puchases);
-                $fullPrice = 0;
-
-                
-                foreach($productPriceArr as $key => $onePriceProduct ){
-                    $fullPrice += $onePriceProduct["price"] * $puchases[$onePriceProduct["id"]];
-                }
-                printScreen($fullPrice);
-                mysqli_query($connect, "
-                    INSERT INTO `orders`
-                    SET `user` = '{$userId}',
-                    `address` = '{$_POST["address"]}',
-                    `comment` = '{$_POST["comment"]}',
-                    `fullprise` = '{$fullPrice}'
-                ");
-                $orderId = mysqli_insert_id($connect);
-                printScreen($orderId);
-
-
-                mysqli_query($connect, "
-                    INSERT INTO `purchers_by_order`
-                    (`purchase`, `order`,`quantity`)
-                    VALUES ('{$puchases}', 134, 'cap is yellow')
-                ");
-                $puchases = array_map(function($item){
-                    global $orderId;
-                    return ["purchase" => $item["id"], "order" => $orderId, "quantity" => $item];
+                $productPriceArr = array_map(function($item){
+                    global $orderId, $puchases;
+                    return ["purchase" => $item["id"], "order" => $orderId, "quantity" => $puchases[$item["id"]]];
                 }, $productPriceArr);
-                printScreen($productPriceArr);
-                
-                
-
-                // function multiInsert():void{};
-                
-            
-
-
-                
-                
-
-
-                
-
-
-
-                
-            
-
-
-
-
-                // echo "Obrobka ordera";
+                insertItemsToDB($connect, "purchers_by_order", $productPriceArr);
+                printScreen($sqlString );
                 break;
             case "review": 
                 // echo "Obrobka otzywa";
