@@ -15,12 +15,12 @@ function createConnect():mysqli {
 }
 
 function getProtectionValue(string|int|float|null $value): string|int|float|null {
-    return ($value || !is_numeric($value)) ? "'{$value}'," : "{$value},";
+    return ($value || !is_numeric($value)) ? "'{$value}'" : $value;
 }
 
 function searchItemByField(mysqli $connect, string $table, string $field, mixed $value ): ?int {
     $value = getProtectionValue($value);
-    $result = mysqli_query($connect, "SELECT `id` FROM `{$table}` WHERE `{$field}` = '{$value}'");
+    $result = mysqli_query($connect, "SELECT `id` FROM `{$table}` WHERE `{$field}` = {$value}");
     return @mysqli_fetch_assoc($result)["id"];
 }    
 
@@ -152,7 +152,7 @@ function insertItemsToDB(mysqli $connect, string $table, array $fieldsArr): void
         $sqlValues = "";
         foreach($product as $field => $value){
             $sqlFields .= "`{$field}`,";
-            $sqlValues .= getProtectionValue($value);
+            $sqlValues .= getProtectionValue($value) . ",";
         }
         if(!$sqlString){
             $sqlFields = substr($sqlFields, 0, -1);
@@ -164,8 +164,16 @@ function insertItemsToDB(mysqli $connect, string $table, array $fieldsArr): void
     $sqlString = substr($sqlString, 0, -1);
     mysqli_query($connect, $sqlString);
 }
-
-function getFullPriceByPurchase(mysqli $DBconnect, string $puchasesJSON): int {
+function getProductPriciesByIds(mysqli $DBconnect, int|string $idList): array{
+    $productPrice = mysqli_query($DBconnect, "
+        SELECT p.`price`, pur.`id` 
+        FROM `purchases` pur 
+        INNER JOIN `products` p ON pur.`product` = p.`id` 
+        WHERE pur.`id` IN ($idList);
+    ");
+    return mysqli_fetch_all($productPrice, MYSQLI_ASSOC);
+}
+function buildPurchaseArray(string $puchasesJSON):array {
     $puchases = [];
     foreach(json_decode($puchasesJSON, true) as $puchase){
         if(!$puchase){
@@ -173,21 +181,57 @@ function getFullPriceByPurchase(mysqli $DBconnect, string $puchasesJSON): int {
         }
         $puchases[$puchase["id"]] = $puchase["quantity"];
     }
-    $idList = implode(",", array_keys($puchases));
+    return $puchases;
+}
 
-    $productPrice = mysqli_query($DBconnect, "
-        SELECT p.`price`, pur.`id` 
-        FROM `purchases` pur 
-        INNER JOIN `products` p ON pur.`product` = p.`id` 
-        WHERE pur.`id` IN ($idList);
-    ");
-    $productPriceArr = mysqli_fetch_all($productPrice, MYSQLI_ASSOC);
+function getArrayKeyList(array $array):string {
+    return implode(",", array_keys($array));
+}
 
+function getFullPrice(array $productPriceArr, array $puchases): int {
     $fullPrice = 0;
-    foreach($productPriceArr as $key => $onePriceProduct ){
+    foreach($productPriceArr as $onePriceProduct ){
         $fullPrice += $onePriceProduct["price"] * $puchases[$onePriceProduct["id"]];
     }
     return $fullPrice;
+}
+
+function getOrCreateUser(mysqli $connect, array $request): ?int {
+    if(!$userId = searchItemByField($connect, "users", "phone", $request["phone"])){
+        $userId = insertOneItemToDB($connect, "users", [
+            "phone" => $request["phone"],
+            "email" => $request["email"],
+            "name" => $request["name"]
+        ]);
+    }
+    return $userId;
+}
+
+function createOrder(mysqli $connect, array $request):int {
+    $userId = getOrCreateUser($connect, $request);
+    $puchases = buildPurchaseArray($request["puchases"]);
+    $puchaseIds = getArrayKeyList($puchases);
+    $productPriceArr = getProductPriciesByIds($connect, $puchaseIds);
+    $fullPrice = getFullPrice($productPriceArr, $puchases);
+    $orderId = insertOneItemToDB($connect, "orders", [
+        "user" => $userId,
+        "address" => $request["address"],
+        "comment" => $request["comment"],
+        "fullprice" => $fullPrice
+    ]);
+    $productPriceArr = array_map(function($item){
+        global $orderId, $puchases;
+        return ["purchase" => $item["id"], "order" => $orderId, "quantity" => $puchases[$item["id"]]];
+    }, $productPriceArr);
+    insertItemsToDB($connect, "purchers_by_order", $productPriceArr);
+    return $orderId;
+}
+
+function printAnswer(mixed $data, bool $error = false): string {
+    return json_encode([
+        "type" => $error ? "error" : "response",
+        "data" => $data
+    ], JSON_UNESCAPED_UNICODE);
 }
 
 

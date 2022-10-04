@@ -47,7 +47,7 @@
                 <strong>Suma:<span>0</span>zł</strong>
             </div>
             <div class="form">Wypelni dane do kontaktu</div>
-            <form action="api_controller.php" method="post">
+            <form>
                 <input type="hidden" name="form_name" value="order">
                 <input type="hidden" name="puchases">
                 <input type="tel"  name="phone" id="username" autocomplete="off" require placeholder="Napisz telephone w formacie XXX-XXX-XXX">

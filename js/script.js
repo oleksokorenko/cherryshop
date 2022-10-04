@@ -90,6 +90,20 @@ document.querySelectorAll(".multi_setting input").forEach(item => {
     });
 });
 
+document.querySelector("#basket form").addEventListener("submit", event => {
+    event.preventDefault();
+    let formData = new FormData(event.target);
+    fetch("api_controller.php", {
+        method:"post",
+        body: formData
+    }).then(response => console.log(response.text()))
+        .then(answer => {
+        alert(JSON.stringify(answer));
+    }).catch(error => console.log(error))
+    return false;
+
+});
+
 
 
 
