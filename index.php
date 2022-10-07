@@ -19,7 +19,7 @@
     background-size: cover;
     margin: 10px;
     border-radius: 50%;
-    
+
 
 
         }
@@ -56,9 +56,9 @@
             <p>Shop-sumy.com.ua</p>
         </div>
         <div class="menu_box">
-        <div class="logo-box">
-            <div class="logo"><a href="/"><img src="./img/logo.jpg" alt="logo czerry"></a></div>
-        </div>
+            <div class="logo-box">
+                <div class="logo"><a href="/"><img src="./img/logo.jpg" alt="logo czerry"></a></div>
+            </div>
             <ul class="menu">
                 <li><a href="shop.html?type=sport">Sport</a></li>
                 <li><a href="shop.html?type=aksesoria">Akcesoria</a></li>
@@ -70,39 +70,26 @@
                     <span></span>
                 </li>
             </ul>
-            <div class="burger"><i class="fa-solid fa-bars"></i>
+            <div class="burger">
+                <i class="fa-solid fa-bars"></i>
             </div>
-    </div>
-    </header>
+        </div>
         <div class="wave_text">
             <h2>Shop-sumy.com.ua</h2>
             <span>Shop-sumy.com.ua</span>
         </div>
-    <section class="close_shop">
-        <?php foreach($typeList as $oneType) { ?>
-            <div style="background-image: url(<?= $oneType["img"] ?>);">
-                <a href="<?= $oneType["link"] ?>"><h4><?= $oneType["name"] ?></h4></a>
-            </div>
-        <?php } ?>
-    </section>
-<div style="height: 3000px;"></div>
-    <!-- ************
-    // <div class="img" ></div>
-    // <div class="flex">
-    //     <div></div>
-    //     <div></div>
-    //     <div class="flex_break"></div>
-    //     <div></div>
-    //     <div class="flex_break"></div>
-        
-    //     <div></div>
-        
-    //     <div></div>
-    // </div>
-    <!-- // <input type="text" placeholder="hdhfsi" tabindex=""> -->
+    </header>
+    <?php
 
+    if(@$_GET["page"] && file_exists("templates/{$_GET["page"]}.php")){
+        include "templates/{$_GET["page"]}.php";
+    }
+    else{
+        include "templates/main.php";
+    }
+    ?>
 
-<footer>
+    <footer>
     <div class="social">
         <a href="https://instagram.com/cherry.ua.shop?utm_medium=copy_link" target="_blank">
             <img src="img/instagram.png" alt="instagram" title="instagram">

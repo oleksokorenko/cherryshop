@@ -6,9 +6,11 @@ require_once "model.php";
 
 try {
     if(isset($_POST["form_name"])){
+//        echo "hello";
         $connect = createConnect();
         switch($_POST["form_name"]){
             case "order":
+                echo "test";
                 trimFields($_POST);
                 formValidate($_POST);
                 $orderId = createOrder($connect, $_POST);
@@ -16,6 +18,14 @@ try {
                 break;
             case "review": 
                 // echo "Obrobka otzywa";
+                break;
+            case "set_basket":
+                $_SESSION["basket"] = $_POST["basket"];
+                echo json_encode(["result" => "ok"]);
+                break;
+            case "get_basket":
+                echo @$_SESSION["basket"] ?: json_encode([]);
+
                 break;
             default:
                 throw new Exception("Nie ma takiej formy") ;

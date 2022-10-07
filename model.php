@@ -234,6 +234,40 @@ function printAnswer(mixed $data, bool $error = false): string {
     ], JSON_UNESCAPED_UNICODE);
 }
 
+function listToArray(array &$subject, array $targetKeys): void
+{
+    foreach($targetKeys as $targetKey){
+        $subject[$targetKey] = explode(',', $subject[$targetKey]);
+    }
+}
+
+function getDataProductById(mysqli $connect, int $id):array {
+    $product = getProductById($connect, $id);
+    listToArray($product, [
+        'ids',
+        'size_ids',
+        'size_labels',
+        'color_ids',
+        'color_values',
+        'color_labels',
+        'amounts'
+    ]);
+
+    foreach($product['size_ids'] as $sizeKey => $oneSize){
+        $product['by_sizes'][$oneSize]['size_id'] = $oneSize;
+        $product['by_sizes'][$oneSize]['size_label'] = $product['size_labels'][$sizeKey];
+        $product['by_sizes'][$oneSize]['colors'][] = [
+            'id' => $product['ids'][$sizeKey],
+            'color_id' => $product['color_ids'][$sizeKey],
+            'color_value' => $product['color_values'][$sizeKey],
+            'color_label' => $product['color_labels'][$sizeKey],
+            'amount' => $product['amounts'][$sizeKey],
+        ];
+    }
+    return $product;
+}
+
+
 
 
 

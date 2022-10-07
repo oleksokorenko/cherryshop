@@ -1,5 +1,18 @@
 /////////////////////////kosz ilość sztuk//
 let basket = [];
+let formData = new FormData;
+formData.set("form_name", "get_basket")
+const request = new XMLHttpRequest();
+request.open("POST","api_controller.php", true);
+request.onreadystatechange = () =>{
+    if(request.readyState === 4 && request.status === 200){
+        basket = JSON.parse(request.response);
+    }
+    else {
+        console.log(request.response);
+    }
+}
+request.send(formData);
 document.getElementById("add_to_box").onclick = function(){
     let product = {};
     let productCheck = {
@@ -29,10 +42,22 @@ document.getElementById("add_to_box").onclick = function(){
         return false;
         }
     basket[product.id] = product;
-    console.log(basket);
-    refreshBasket();
-    resetProduct();
-    alert(`Product '${product.name}' w ilości '${product.quantity}'dodano do kosza`);
+    let formData = new FormData();
+    formData.set("form_name", "set_basket")
+    formData.set("basket", JSON.stringify(basket));
+    const request = new XMLHttpRequest();
+    request.open("POST","api_controller.php", true);
+    request.onreadystatechange = () =>{
+        if(request.readyState === 4 && request.status === 200){
+            refreshBasket();
+            resetProduct();
+            alert(`Product '${product.name}' w ilości '${product.quantity}'dodano do kosza`);
+        }
+        else {
+            console.log(request.response);
+        }
+    }
+    request.send(formData);
 }
 document.querySelectorAll(".closer").forEach(item =>{
         item.addEventListener("click", event =>{
@@ -92,17 +117,24 @@ document.querySelectorAll(".multi_setting input").forEach(item => {
 
 document.querySelector("#basket form").addEventListener("submit", event => {
     event.preventDefault();
-    let formData = new FormData(event.target);
-    fetch("api_controller.php", {
-        method:"post",
-        body: formData
-    }).then(response => console.log(response.text()))
-        .then(answer => {
-        alert(JSON.stringify(answer));
-    }).catch(error => console.log(error))
-    return false;
+    console.log(event.target);
 
+    let formData = new FormData(event.target);
+    const request = new XMLHttpRequest();
+    request.open("POST","api_controller.php", true);
+    request.onreadystatechange = () =>{
+        if(request.readyState === 4 && request.status === 200){
+            alert(request.response);
+        }
+        else {
+            console.log(request.response);
+        }
+    }
+    request.send(formData);
+
+    return false;
 });
+
 
 
 
